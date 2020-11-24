@@ -1,0 +1,70 @@
+Install all restapi related jars, and also java.
+Set the correct java home path and add restassured related jars to it.
+
+Testcase 1
+
+api.openweathermap.org/data/2.5/forecast?q={Aberdeen}&appid={API key}
+Api key got from website
+cityname Aberdeen. pls refer payload one for this testcase
+
+Request url in restassured format:
+Restassured.baseURI=api.openweathermap.org/data/2.5;
+Given().setBaseURI.pathparam("apikey" , "7f5f9f296f4839f593d1171e5bec03a4).queryparam("city" "Aberdeen").when().get("/forecast").then.assertthat().statuscodee200.extract().response()
+
+assert response according to payload data file.
+
+Testcase 2
+query by date and cityname
+api.openweathermap.org/data/2.5/forecast?q={city name},{date(}&appid={API key}
+data requested as 11am, hence 3 data after it is displayed.  Please check payload file for 2nd testcase.
+should display the 3 hrs result after the time it is requested for. For example, after 12am, it should display 15.00, 18.00 and 21.00
+
+Testcase 3
+
+Select day again, hide 3 hourly forecast
+details.js
+
+response should be nil
+
+Testcase 4
+
+Daily forecast should summarize the 3 hour data:
+Most dominant (or current) condition details.js
+Most dominant (or current) wind speed and direction details.js
+Aggregate rainfall details.js
+Minimum and maximum temperatures
+All values should be rounded down
+
+ 
+    });
+
+import Detail from '../../test/components/detail';
+expect detail to have minimum temperature and maximum temperate
+aggregate rainfall.
+
+   date: new Date(2016, 10, 10)
+    , description: 'Rain'
+    , maximumTemperature: 20 
+    , minimumTemperature: 10 
+    , windSpeed: 20
+    , windDirection: 359
+    , rainfall: 0
+    pressure: 1000 
+	
+"temp": 19.34,
+"temp_min": 14.71,
+
+Response should contain the jayson for all the above fields.
+
+
+
+
+
+
+Should get the field data in the below mentioned format
+
+Depends on the time of actual request by the customer, it will adhere to 12, 15, 18, 21, 24 hr formats
+will be provided by detail.js
+
+
+
